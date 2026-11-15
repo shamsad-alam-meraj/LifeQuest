@@ -6,7 +6,8 @@ import { Fox } from '../../ui/Fox';
 import { Icon } from '../../ui/Icon';
 import { Logo } from '../../ui/Logo';
 
-const REPO = 'https://github.com/';
+const REPO = 'https://github.com/shamsad-alam-meraj/LifeQuest';
+const PORTFOLIO = 'https://shamsad.vercel.app';
 
 const FEATURES = [
   { i: '🧭', c: 'bg-grad-violet', t: 'AI Game Master', d: 'Tell it a real goal. It builds an adventure of concrete, doable quests sized to your level and interests.' },
@@ -86,7 +87,7 @@ export function Landing() {
               <p className="mx-auto mt-5 mb-8 max-w-xl text-[clamp(1.05rem,2vw,1.25rem)] text-ink2 lg:mx-0">LifeQuest turns your real goals into AI-crafted quests, skill trees and achievements. The game is in your life, not on your screen.</p>
               <div className="flex flex-wrap justify-center gap-3.5 lg:justify-start">
                 <button className="btn btn-gold btn-lg" onClick={start}>Start your adventure <Icon name="arrow" size={18} /></button>
-                <a className="btn btn-lg" href={REPO} target="_blank" rel="noreferrer"><Icon name="github" size={18} /> View on GitHub</a>
+                <a className="btn btn-lg" href={REPO} target="_blank" rel="noopener noreferrer"><Icon name="github" size={18} /> View on GitHub</a>
               </div>
               <ul className="m-0 mt-7 flex list-none flex-wrap justify-center gap-x-6 gap-y-2 p-0 text-sm text-ink3 lg:justify-start">
                 {['No account', 'Works offline', 'Your data stays yours'].map((t) => <li key={t}><span className="text-gold">✦</span> {t}</li>)}
@@ -194,9 +195,10 @@ export function Landing() {
 
       <footer className="mt-10 border-t border-line py-10 text-sm text-ink3">
         <div className="wrap flex flex-wrap items-center justify-between gap-5">
-          <div className="flex items-center gap-3"><Logo size={22} /><span>© {new Date().getFullYear()} LifeQuest. MIT licensed.</span></div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1"><Logo size={22} /><span>© {new Date().getFullYear()} LifeQuest. MIT licensed. Built by <a className="text-ink2 underline-offset-4 hover:text-ink hover:underline" href={PORTFOLIO} target="_blank" rel="noopener noreferrer">Shamsad Alam Meraj</a>.</span></div>
           <nav aria-label="Footer" className="flex flex-wrap gap-5">
-            <a className="no-underline hover:text-ink" href={REPO} target="_blank" rel="noreferrer">GitHub</a>
+            <a className="no-underline hover:text-ink" href={REPO} target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a className="no-underline hover:text-ink" href={PORTFOLIO} target="_blank" rel="noopener noreferrer">Portfolio</a>
             <Link className="no-underline hover:text-ink" href="/app">Open app</Link>
             <Link className="no-underline hover:text-ink" href="/privacy">Privacy</Link>
           </nav>

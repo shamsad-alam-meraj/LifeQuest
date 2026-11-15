@@ -49,4 +49,5 @@ Browser (React)  ──server actions──►  Next.js server  ──Drizzle─
 ## Links
 - Live demo: https://life-quest-io.vercel.app
 - Source: https://github.com/shamsad-alam-meraj/LifeQuest
+- Author portfolio: https://shamsad.vercel.app
 - Docs: [README](../README.md) · [Architecture](ARCHITECTURE.md) · [Cloud & security](CLOUD.md) · [Deploy](DEPLOY.md) · [Testing](TESTING.md)
