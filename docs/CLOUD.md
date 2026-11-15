@@ -20,6 +20,7 @@ Everything cloud-related is optional. With no env vars the app is a fully workin
      <p>Or <a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=email">click here to sign in</a> (works on any device).</p>
      ```
      (In the *Confirm signup* template use `&type=signup`.)
+   - After saving these, run `npm run check:auth`: it asks Supabase where links will go (no email is sent) and prints PASS or FAIL.
    - **Redirect URLs** (*Authentication → URL Configuration*): set *Site URL* to your production URL and add `http://localhost:3000/**` plus your Vercel preview/production domains to *Redirect URLs*. The link in the email goes to `/auth/confirm` on the site that requested the code; Supabase ignores redirect targets that aren't on this list.
    - Both styles are handled by `/auth/confirm`: `token_hash` links work in any browser; Supabase's default `ConfirmationURL` links (PKCE) must be opened in the **same browser** that requested the code.
    - **Sending the emails yourself (recommended; removes Supabase's ~2 emails/hour limit).** Two options:
