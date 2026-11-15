@@ -11,7 +11,7 @@ Everything cloud-related is optional. With no env vars the app is a fully workin
 | Game rules | `packages/core` (framework-free; also used server-side to verify saves). |
 
 ## One-time setup
-1. **Auth** (Supabase dashboard): *Authentication → Providers → Email* enabled. Check *Email OTP Length* (Supabase's default is 8; it must match `OTP_LENGTH`, which also defaults to 8). Configure custom SMTP before real users (the built-in sender allows only a few emails/hour).
+1. **Auth** (Supabase dashboard): *Authentication → Providers → Email* enabled. The sign-in screen accepts any 6 to 10 digit code, so *Email OTP Length* needs no matching app setting (Supabase's default is 8).
    - **Email templates**: edit **both** *Magic Link* (existing users) **and** *Confirm signup* (first-time users: our login creates accounts on first use). Without `{{ .Token }}` the email has only a link and no code. Recommended body, which supports both the code and a working link:
      ```html
      <h2>Your LifeQuest sign-in code</h2>

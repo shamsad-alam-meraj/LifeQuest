@@ -14,7 +14,6 @@ cp apps/web/.env.example apps/web/.env.local   # then edit
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | for login/sync/guilds | the publishable key (`sb_publishable_…`). Never the secret/`service_role` key |
 | `DATABASE_URL` | for login/sync/guilds | **Transaction pooler** string (port 6543) with your DB password. **Server-only: never prefix with `NEXT_PUBLIC_`.** Mark it *Sensitive* in Vercel |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SUPABASE_SECRET_KEY` | optional | send sign-in emails over your own SMTP (see CLOUD.md). All five are needed; mark `SMTP_PASS` and `SUPABASE_SECRET_KEY` *Sensitive* |
-| `OTP_LENGTH` | no | must match Supabase "Email OTP Length" (default 8) |
 | `LOGIN_TRACKING` | no | `optional` disables the "tracking is mandatory" rule (not recommended) |
 
 Without `DATABASE_URL` sign-in is disabled (login tracking is mandatory) and the app runs as a guest app.
