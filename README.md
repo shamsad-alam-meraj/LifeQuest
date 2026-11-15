@@ -1,5 +1,7 @@
 # ⚔️ LifeQuest
 
+[![CI](https://github.com/shamsad-alam-meraj/LifeQuest/actions/workflows/ci.yml/badge.svg)](https://github.com/shamsad-alam-meraj/LifeQuest/actions/workflows/ci.yml)
+
 **Make real life feel like an adventure worth progressing through.**
 
 LifeQuest is an open-source, AI-powered progression game for real life. Tell it a goal ("run a 5k", "learn guitar") and an AI Game Master turns it into an adventure of concrete, offline quests. Completing them earns XP, levels skills, keeps streaks and unlocks achievements. Friends can team up in guilds for weekly co-op missions.

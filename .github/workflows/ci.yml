@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Typecheck, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Vercel installs only the apps/web workspace (no root dev dependencies such as vitest).
+  # This job builds exactly that way so a "works locally, fails on Vercel" break is caught in CI.
+  vercel-parity:
+    name: Build like Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install only apps/web (as Vercel does)
+        working-directory: apps/web
+        run: npm install
+      - name: Build with no environment variables (first-deploy conditions)
+        working-directory: apps/web
+        run: npx next build

@@ -40,3 +40,23 @@ Run the "Production smoke test" in [TESTING.md](TESTING.md).
 - Real routes: `/` (landing), `/login`, `/app/*`, `/privacy`. No rewrites needed.
 - The service worker caches static assets only (never pages: they can contain account data), so a cold start offline needs a network.
 - IP logging: Vercel sets `x-forwarded-for` itself, so the recorded IP is trustworthy there.
+
+## CI/CD (GitHub Actions)
+
+| Workflow | When | What it does |
+|---|---|---|
+| `ci.yml` | every PR and push to `main` | **verify**: `npm ci`, typecheck, tests, production build. **vercel-parity**: installs only `apps/web` and builds with no env vars, exactly like Vercel, so a "works locally, fails on Vercel" break is caught before deploy |
+| `migrate.yml` | push to `main` that changes `apps/web/drizzle/**`, or run manually | applies Drizzle migrations to production using the repo secret `DATABASE_URL` (skips with a warning if unset) |
+| `deploy.yml` | optional, off by default | deploys with the Vercel CLI after CI passes |
+
+**Default setup (recommended): Vercel's Git integration is the CD.** Every push to `main` deploys to production and every PR gets a preview. Make CI a gate by turning on branch protection for `main` (*Settings → Branches → Require status checks*: `Typecheck, test, build` and `Build like Vercel`) and merging through pull requests.
+
+**Enable automatic migrations:** *Settings → Secrets and variables → Actions → New repository secret* → `DATABASE_URL` (the transaction-pooler string). Optionally create an environment named `production` with required reviewers so migrations wait for approval.
+
+**Deploy from Actions instead of Vercel's Git integration** (only deploys after CI is green):
+1. Create a Vercel token (Account Settings → Tokens). Run `npx vercel link` once in the repo to get `orgId` and `projectId` from `.vercel/project.json`.
+2. Repo secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`. Repo variable: `VERCEL_CLI_DEPLOY` = `true`.
+3. In the Vercel project, disable automatic production deploys from Git (otherwise every push deploys twice).
+
+### Why the first Vercel deploy failed
+Vercel installs only the `apps/web` workspace, so root-only dev dependencies (`vitest`) were missing, and Next's build type-checks every `.ts` file it can see, including `*.test.ts`. Fix: `apps/web/tsconfig.json` now excludes tests from the app build, and `tsconfig.typecheck.json` keeps type-checking them in `npm run typecheck` and CI.
