@@ -5,9 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Fox } from '../../ui/Fox';
 import { Icon } from '../../ui/Icon';
 import { Logo } from '../../ui/Logo';
+import { PORTFOLIO, REPO } from '../../lib/site';
 
-const REPO = 'https://github.com/shamsad-alam-meraj/LifeQuest';
-const PORTFOLIO = 'https://shamsad.vercel.app';
 
 const FEATURES = [
   { i: '🧭', c: 'bg-grad-violet', t: 'AI Game Master', d: 'Tell it a real goal. It builds an adventure of concrete, doable quests sized to your level and interests.' },

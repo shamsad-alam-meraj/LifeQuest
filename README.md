@@ -56,6 +56,7 @@ Cloud features (login, sync, guilds) are optional: copy `apps/web/.env.example` 
 - [Architecture & roadmap](docs/ARCHITECTURE.md)
 - [Database, auth, guilds & login tracking](docs/CLOUD.md)
 - [Deploy to Vercel](docs/DEPLOY.md)
+- [SEO & social sharing](docs/SEO.md)
 - [Testing guide](docs/TESTING.md)
 
 ## Roadmap
