@@ -7,11 +7,12 @@ import { sendCodeAction, verifyCodeAction } from '../../app/actions';
 import { Fox } from '../../ui/Fox';
 import { Logo } from '../../ui/Logo';
 import { OtpInput } from './OtpInput';
+import { OTP_DEFAULT, OTP_MIN } from './otpLogic';
 
 const RESEND_SECONDS = 30;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function Login({ authEnabled, otpLength, initialError = '' }: { authEnabled: boolean; otpLength: number; initialError?: string }) {
+export function Login({ authEnabled, initialError = '' }: { authEnabled: boolean; initialError?: string }) {
   const router = useRouter();
   const [step, setStep] = useState<'email' | 'code'>('email');
   const [email, setEmail] = useState('');
@@ -83,9 +84,9 @@ export function Login({ authEnabled, otpLength, initialError = '' }: { authEnabl
           </form>
         ) : (
           <div className="mt-2 flex flex-col gap-5">
-            <div><h1 className="text-2xl">Check your email</h1><p className="mt-2 text-sm text-ink2">We sent a {otpLength}-digit code to <b className="text-ink">{email}</b>. Enter it below, or just click the sign-in link in the same email. Not there? Check spam, and use only the <b className="text-ink">newest</b> email.</p></div>
-            <OtpInput length={otpLength} value={code} onChange={(v) => { setCode(v); setError(''); }} onComplete={verify} disabled={busy} invalid={!!error} />
-            <button className="btn btn-primary btn-lg" disabled={busy || code.length < Math.min(6, otpLength)} onClick={() => verify(code)}>{busy ? 'Verifying…' : 'Verify & enter'}</button>
+            <div><h1 className="text-2xl">Check your email</h1><p className="mt-2 text-sm text-ink2">We sent a sign-in code to <b className="text-ink">{email}</b>. Enter it below, or just click the sign-in link in the same email. Not there? Check spam, and use only the <b className="text-ink">newest</b> email.</p></div>
+            <OtpInput value={code} onChange={(v) => { setCode(v); setError(''); }} onComplete={verify} autoSubmitAt={OTP_DEFAULT} disabled={busy} invalid={!!error} />
+            <button className="btn btn-primary btn-lg" disabled={busy || code.length < OTP_MIN} onClick={() => verify(code)}>{busy ? 'Verifying…' : 'Verify & enter'}</button>
             <div className="flex flex-wrap items-center justify-center gap-x-4 text-sm">
               <button className="btn btn-ghost min-h-9 px-3 py-1 text-sm" disabled={cooldown > 0 || busy} onClick={() => send()}>{cooldown > 0 ? `Resend in ${cooldown}s` : 'Resend code'}</button>
               <button className="btn btn-ghost min-h-9 px-3 py-1 text-sm" onClick={() => { setStep('email'); setError(''); setCode(''); }}>Change email</button>

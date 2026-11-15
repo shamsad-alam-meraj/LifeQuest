@@ -11,7 +11,5 @@ export const dynamic = 'force-dynamic';
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   if (await getSessionUser()) redirect('/app');
-  const e = process.env;
-  const otpLength = Number(e.OTP_LENGTH ?? e.NEXT_PUBLIC_OTP_LENGTH ?? e.VITE_OTP_LENGTH) || 8; // Supabase's current default Email OTP Length
-  return <Login authEnabled={!!supabaseConfig() && (!!getDb() || process.env.LOGIN_TRACKING === 'optional')} otpLength={otpLength} initialError={error && error in LINK_ERRORS ? LINK_ERRORS[error as LinkError] : ''} />;
+  return <Login authEnabled={!!supabaseConfig() && (!!getDb() || process.env.LOGIN_TRACKING === 'optional')} initialError={error && error in LINK_ERRORS ? LINK_ERRORS[error as LinkError] : ''} />;
 }
