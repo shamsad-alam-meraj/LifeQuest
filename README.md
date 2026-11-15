@@ -9,6 +9,8 @@ LifeQuest is an open-source, AI-powered progression game for real life. Tell it 
 > The game should make real life more meaningful, not make people spend more time inside the game.
 > Quests are offline actions, rewards are capped per day, and progress is tied to what you actually did.
 
+**Live demo:** https://life-quest-io.vercel.app
+
 **Stack:** Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Drizzle ORM · Supabase (Postgres + Auth) · Vitest · Vercel. Everything runs on free tiers.
 
 ## Features
