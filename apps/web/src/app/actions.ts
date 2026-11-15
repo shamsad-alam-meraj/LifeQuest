@@ -9,6 +9,7 @@ import { AppError } from '../server/errors';
 import { loadSave, saveGame } from '../server/game';
 import { createGuild, guildOverview, joinGuild, leaveGuild } from '../server/guild';
 import { cleanUserAgent, getClientIp } from '../server/ip';
+import { sendLoginEmail } from '../server/authEmail';
 import { isRateLimited, recentLogins, recordLoginEvent, type LoginEventType } from '../server/loginEvents';
 import type { DB } from '../server/types';
 import type { GameState } from '@lifequest/core';
@@ -76,6 +77,11 @@ export async function sendCodeAction(rawEmail: string): Promise<Result<null>> {
       throw new AppError('Too many attempts. Please wait a few minutes and try again.', 'rate_limited');
     }
     await track(db, { email, event: 'otp_requested' });
+
+    // Preferred: send the email ourselves over SMTP (needs SMTP_* and SUPABASE_SECRET_KEY). Otherwise Supabase sends it.
+    try { if (await sendLoginEmail(email, await siteOrigin())) return null; }
+    catch (e) { console.error('[auth] SMTP sign-in email failed:', e); throw new AppError('Could not send the code. Please try again.'); }
+
     const { error } = await supabase.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: `${await siteOrigin()}/auth/confirm` } });
     if (error) {
       console.error('[auth] signInWithOtp failed:', error.status, error.code, error.message); // visible in the server log / Vercel logs

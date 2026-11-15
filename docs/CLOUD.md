@@ -22,6 +22,9 @@ Everything cloud-related is optional. With no env vars the app is a fully workin
      (In the *Confirm signup* template use `&type=signup`.)
    - **Redirect URLs** (*Authentication → URL Configuration*): set *Site URL* to your production URL and add `http://localhost:3000/**` plus your Vercel preview/production domains to *Redirect URLs*. The link in the email goes to `/auth/confirm` on the site that requested the code; Supabase ignores redirect targets that aren't on this list.
    - Both styles are handled by `/auth/confirm`: `token_hash` links work in any browser; Supabase's default `ConfirmationURL` links (PKCE) must be opened in the **same browser** that requested the code.
+   - **Sending the emails yourself (recommended; removes Supabase's ~2 emails/hour limit).** Two options:
+     1. *No code:* Supabase → *Authentication → Emails → SMTP Settings* → enable custom SMTP and enter your provider's host, port, user, password and sender. (Gmail: `smtp.gmail.com`, port 465, an App Password.)
+     2. *In the app:* set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` **and** `SUPABASE_SECRET_KEY` (Supabase → Project Settings → API Keys → *Secret keys*). The server then asks Supabase to *generate* the one-time code (no email), emails it over your SMTP with a branded template (code + one-click link), and verification is unchanged. If any of the five is missing, the app falls back to Supabase's own email. The secret key is powerful and server-only: store it as a *Sensitive* env var, never with a `NEXT_PUBLIC_` prefix. The login rate limits above still apply, since Supabase's own email limits no longer protect you.
 2. **Database password**: *Project Settings → Database* (reset it if you don't know it). Put it in `apps/web/.env.local` as `DATABASE_URL` using the **Transaction pooler** string (port 6543). URL-encode special characters in the password.
 3. **Create the tables**:
    ```bash

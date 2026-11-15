@@ -53,6 +53,7 @@ DevTools → Application → Service Workers is registered; static assets are se
 |---|---|
 | `/login` says "Email sign-in isn't set up" | `DATABASE_URL` missing/placeholder (tracking is mandatory) or Supabase vars missing; restart `next dev`/redeploy |
 | "Sign-in is temporarily unavailable" | database not configured or unreachable |
+| No email arrives at all | Supabase's built-in sender allows ~2/hour: configure SMTP (CLOUD.md). Check spam. Server log shows `[auth] ...failed` with the cause |
 | Email has a link, no code | template missing `{{ .Token }}`: edit **Magic Link and Confirm signup** templates (see CLOUD.md) |
 | Clicking the email link doesn't sign me in | `http://localhost:3000/**` (or your domain) missing from Supabase Redirect URLs, or the link was opened in a different browser (use the `token_hash` template) |
 | "Too many attempts" | our rate limit (10 min window) or Supabase's email limit → custom SMTP |
