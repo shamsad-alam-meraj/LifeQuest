@@ -1,0 +1,37 @@
+name: Database migrations
+
+# Applies Drizzle migrations to the production database when a migration file changes on main.
+# Needs the repository secret DATABASE_URL (Supabase transaction-pooler string). Skips safely if it is not set.
+on:
+  push:
+    branches: [main]
+    paths: ['apps/web/drizzle/**']
+  workflow_dispatch:
+
+concurrency:
+  group: db-migrate
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    environment: production # optional: add required reviewers / environment-scoped secrets in repo settings
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Apply migrations
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::warning::DATABASE_URL secret is not set; skipping migrations."
+            exit 0
+          fi
+          npm run db:migrate
