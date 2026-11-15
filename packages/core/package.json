@@ -1,0 +1,9 @@
+{
+  "name": "@lifequest/core",
+  "version": "0.1.0",
+  "description": "LifeQuest progression engine: profiles, skills, quests, XP, achievements. Framework-free and AI-free.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts"
+}

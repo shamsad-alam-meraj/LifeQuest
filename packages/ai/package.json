@@ -1,0 +1,13 @@
+{
+  "name": "@lifequest/ai",
+  "version": "0.1.0",
+  "description": "LifeQuest AI game master: provider adapters (Gemini, Groq, OpenRouter) and prompts that turn goals into adventures.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@lifequest/core": "*",
+    "zod": "^4.6.7"
+  }
+}

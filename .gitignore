@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+
+# build output / generated
+.next
+out
+dist
+build
+coverage
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: never commit. Only the template is tracked.
+.env*
+!.env.example
+
+# logs, OS and editor files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Vercel
+.vercel
+
+# local scratch / third-party design reference (not ours to redistribute)
+docs/images/mock_design.png
