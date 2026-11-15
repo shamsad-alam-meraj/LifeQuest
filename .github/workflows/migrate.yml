@@ -1,11 +1,10 @@
-name: Database migrations
+name: Database migrations (manual)
 
-# Applies Drizzle migrations to the production database when a migration file changes on main.
-# Needs the repository secret DATABASE_URL (Supabase transaction-pooler string). Skips safely if it is not set.
+# Production migrations run automatically on every Vercel production deploy (apps/web "vercel-build" script).
+# This workflow is only for running them by hand, e.g. to migrate without deploying. It is manual-only on purpose:
+# an automatic run here would race the deploy-time migration.
+# Needs the repository secret DATABASE_URL (Supabase transaction-pooler string).
 on:
-  push:
-    branches: [main]
-    paths: ['apps/web/drizzle/**']
   workflow_dispatch:
 
 concurrency:
@@ -18,7 +17,7 @@ permissions:
 jobs:
   migrate:
     runs-on: ubuntu-latest
-    environment: production # optional: add required reviewers / environment-scoped secrets in repo settings
+    environment: production
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,9 +28,7 @@ jobs:
       - name: Apply migrations
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          VERCEL_ENV: production # tells the script this is an intentional production migration
         run: |
-          if [ -z "$DATABASE_URL" ]; then
-            echo "::warning::DATABASE_URL secret is not set; skipping migrations."
-            exit 0
-          fi
-          npm run db:migrate
+          if [ -z "$DATABASE_URL" ]; then echo "::error::DATABASE_URL secret is not set"; exit 1; fi
+          npm run db:migrate:deploy -w @lifequest/web
