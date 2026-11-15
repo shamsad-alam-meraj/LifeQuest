@@ -47,6 +47,6 @@ Browser (React)  ──server actions──►  Next.js server  ──Drizzle─
 - Delivered a responsive, accessible UI (phone to ultrawide), installable PWA, and PDF/CSV export.
 
 ## Links
-- Live demo: _add your Vercel URL_
-- Source: _add your GitHub URL_
+- Live demo: https://life-quest-io.vercel.app
+- Source: https://github.com/shamsad-alam-meraj/LifeQuest
 - Docs: [README](../README.md) · [Architecture](ARCHITECTURE.md) · [Cloud & security](CLOUD.md) · [Deploy](DEPLOY.md) · [Testing](TESTING.md)
