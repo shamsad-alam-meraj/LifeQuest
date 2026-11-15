@@ -33,7 +33,7 @@ Everything cloud-related is optional. With no env vars the app is a fully workin
    If your network blocks the pooler, paste `apps/web/drizzle/0000_*.sql` then `0001_auth_foreign_keys.sql` into the Supabase SQL editor, in that order.
 4. `npm run dev`.
 
-Changing the schema: edit `src/db/schema.ts` → `npm run db:generate` → commit the new SQL → `npm run db:migrate`.
+Changing the schema: edit `src/db/schema.ts` → `npm run db:generate` → commit the new SQL → merge to `main`. Production deploys apply pending migrations automatically (see [DEPLOY.md](DEPLOY.md)); locally use `npm run db:migrate`.
 
 ## Tables
 `game_saves`, `profiles` (leaderboard stats), `guilds`, `guild_members` (one guild per player), `guild_missions`, `guild_contributions`, `login_events` (audit log).

@@ -57,6 +57,8 @@ DevTools → Application → Service Workers is registered; static assets are se
 | Email has a link, no code | template missing `{{ .Token }}`: edit **Magic Link and Confirm signup** templates (see CLOUD.md) |
 | Clicking the email link doesn't sign me in | `http://localhost:3000/**` (or your domain) missing from Supabase Redirect URLs, or the link was opened in a different browser (use the `token_hash` template) |
 | "Too many attempts" | our rate limit (10 min window) or Supabase's email limit → custom SMTP |
+| Deploy fails with `[migrate] FAILED` | the migration SQL failed or the database is unreachable from Vercel: check the message after `cause:`, `DATABASE_URL` for the Production environment, and that the pooler string (port 6543) is used |
+| Deploy log says `[migrate] skipped: DATABASE_URL is not set` | add `DATABASE_URL` to Vercel's *Production* environment variables and redeploy |
 | `db:migrate` hangs/fails | pooler blocked or wrong password (URL-encode special characters) → paste the SQL files in the SQL editor |
 | IP column empty | self-hosted without a proxy setting `x-forwarded-for` |
 | "Bus error" from vite/vitest/next | corrupted native download → `rm -rf node_modules package-lock.json && npm install` |
