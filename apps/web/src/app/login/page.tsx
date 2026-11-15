@@ -5,7 +5,7 @@ import { getDb } from '../../db/client';
 import { getSessionUser, supabaseConfig } from '../../lib/supabase';
 import { LINK_ERRORS, type LinkError } from '../../server/redirect';
 
-export const metadata: Metadata = { title: 'Sign in' };
+export const metadata: Metadata = { title: 'Sign in', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {

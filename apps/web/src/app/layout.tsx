@@ -4,14 +4,24 @@ import '@fontsource-variable/inter';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { PwaRegister } from '../components/PwaRegister';
+import { AUTHOR, DESCRIPTION, KEYWORDS, PORTFOLIO, SITE_NAME, SITE_URL, TITLE } from '../lib/site';
 
 export const metadata: Metadata = {
-  title: { default: 'LifeQuest — Turn real life into an adventure', template: '%s · LifeQuest' },
-  description: 'LifeQuest is an open-source, AI-powered game that turns your real-world goals into quests, skills and achievements. Free, private, local-first.',
+  metadataBase: new URL(SITE_URL),
+  title: { default: TITLE, template: `%s · ${SITE_NAME}` },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: KEYWORDS,
+  authors: [{ name: AUTHOR, url: PORTFOLIO }],
+  creator: AUTHOR,
+  category: 'lifestyle',
   manifest: '/manifest.webmanifest',
-  icons: { icon: '/icon.svg' },
-  openGraph: { type: 'website', title: 'LifeQuest — Turn real life into an adventure', description: 'AI-generated quests for your real goals. Level up skills, keep streaks, unlock achievements.' },
-  twitter: { card: 'summary_large_image' },
+  icons: { icon: [{ url: '/icon.svg', type: 'image/svg+xml' }, { url: '/icons/192', sizes: '192x192', type: 'image/png' }], apple: '/apple-icon' },
+  // og:image / twitter:image come from app/opengraph-image.tsx and app/twitter-image.tsx
+  openGraph: { type: 'website', siteName: SITE_NAME, title: TITLE, description: DESCRIPTION, locale: 'en_US' },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 export const viewport: Viewport = { themeColor: '#070b24', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 

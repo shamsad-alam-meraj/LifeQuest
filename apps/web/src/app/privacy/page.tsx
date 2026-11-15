@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { Logo } from '../../ui/Logo';
 import { RETENTION_DAYS } from '../../server/loginEvents';
 
-export const metadata: Metadata = { title: 'Privacy' };
+export const metadata: Metadata = {
+  title: 'Privacy',
+  description: 'What LifeQuest stores, how sign-in is secured, and your choices.',
+  alternates: { canonical: '/privacy' },
+  openGraph: { url: '/privacy', title: 'Privacy · LifeQuest', description: 'What LifeQuest stores, how sign-in is secured, and your choices.' },
+};
 
 export default function PrivacyPage() {
   return (
