@@ -17,7 +17,8 @@
     "verify": "npm run typecheck && npm test && npm run build",
     "start": "npm run start -w @lifequest/web",
     "db:generate": "npm run db:generate -w @lifequest/web",
-    "db:migrate": "npm run db:migrate -w @lifequest/web"
+    "db:migrate": "npm run db:migrate -w @lifequest/web",
+    "check:auth": "npm run check:auth -w @lifequest/web --"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

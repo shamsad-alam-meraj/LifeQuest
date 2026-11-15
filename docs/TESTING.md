@@ -55,6 +55,7 @@ DevTools → Application → Service Workers is registered; static assets are se
 | "Sign-in is temporarily unavailable" | database not configured or unreachable |
 | No email arrives at all | Supabase's built-in sender allows ~2/hour: configure SMTP (CLOUD.md). Check spam. Server log shows `[auth] ...failed` with the cause |
 | Email has a link, no code | template missing `{{ .Token }}`: edit **Magic Link and Confirm signup** templates (see CLOUD.md) |
+| Email link opens `localhost` | Supabase *Site URL* is still localhost and your live URL is not in *Redirect URLs*. Run `npm run check:auth` (no email is sent): it prints PASS/FAIL and the exact settings to change |
 | Clicking the email link doesn't sign me in | `http://localhost:3000/**` (or your domain) missing from Supabase Redirect URLs, or the link was opened in a different browser (use the `token_hash` template) |
 | "Too many attempts" | our rate limit (10 min window) or Supabase's email limit → custom SMTP |
 | Deploy fails with `[migrate] FAILED` | the migration SQL failed or the database is unreachable from Vercel: check the message after `cause:`, `DATABASE_URL` for the Production environment, and that the pooler string (port 6543) is used |
