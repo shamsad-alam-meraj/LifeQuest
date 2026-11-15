@@ -23,7 +23,7 @@ The old `VITE_SUPABASE_*` names are still read as a fallback.
 ## 2. Deploy
 1. Push to GitHub → Vercel → **Add New → Project** → import.
 2. **Root Directory: `apps/web`** (keep *Include source files outside of the Root Directory* enabled: the shared `packages/*` live at the repo root). Framework preset: Next.js (auto).
-3. **Node.js 22.x** (Project Settings → General). Node 20 works but Supabase's SDK has deprecated it.
+3. **Node.js**: `apps/web/package.json` declares `"node": ">=22"`, so Vercel uses its newest supported LTS (24.x) automatically. You can also pin it in Project Settings → General. Node 20 is no longer supported by the project.
 4. Add the env vars above for **Production and Preview**. Env changes need a **redeploy**.
 5. Run the migrations against the production database **once**: `npm run db:migrate` from your machine with the production `DATABASE_URL` (or paste the SQL files from `apps/web/drizzle/` into the Supabase SQL editor).
 6. Deploy.

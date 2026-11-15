@@ -24,6 +24,8 @@ LifeQuest is an open-source, AI-powered progression game for real life. Tell it 
 
 ## Quick start
 
+Requires **Node.js 22 or newer** (24 LTS recommended; `.nvmrc` pins 24, so `nvm use` picks it).
+
 ```bash
 npm install
 npm run dev          # http://localhost:3000, works immediately as a guest
